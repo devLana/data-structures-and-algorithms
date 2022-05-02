@@ -18,12 +18,18 @@ class Stack {
     this.items = items;
   }
 
-  push(element) {
+  push(...elements) {
     if (this.isFull()) {
       throw new Error("Stack is full. Cannot add anymore elements");
     }
 
-    this.items.push(element);
+    if (this.capacity) {
+      const diff = this.capacity - this.items.length;
+      const items = elements.slice(0, diff);
+      this.items.push(...items);
+    } else {
+      this.items.push(...elements);
+    }
   }
 
   pop() {
@@ -49,4 +55,4 @@ class Stack {
   }
 }
 
-const stack = new Stack(5, 11, 19);
+const stack = new Stack(null, 11, 19, 1, 2);

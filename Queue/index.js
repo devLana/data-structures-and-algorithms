@@ -18,12 +18,18 @@ class Queue {
     this.items = items;
   }
 
-  enqueue(element) {
+  enqueue(...elements) {
     if (this.isFull()) {
       throw new Error("Queue is full");
     }
 
-    this.items.unshift(element);
+    if (this.capacity) {
+      const diff = this.capacity - this.items.length;
+      const items = elements.slice(0, diff);
+      this.items.unshift(...items);
+    } else {
+      this.items.unshift(...elements);
+    }
   }
 
   dequeue() {
@@ -48,3 +54,8 @@ class Queue {
     return true;
   }
 }
+
+const queue = new Queue(5);
+console.log(queue.items);
+queue.enqueue(78, 57, 78, 97, 43, 58, 43);
+console.log(queue.items);
