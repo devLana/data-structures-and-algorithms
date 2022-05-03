@@ -53,6 +53,10 @@ class Stack {
     }
     return true;
   }
+
+  size() {
+    return this.items.length;
+  }
 }
 
 const stack = new Stack(null, 11, 19, 1, 2);

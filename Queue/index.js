@@ -53,6 +53,10 @@ class Queue {
     }
     return true;
   }
+
+  size() {
+    return this.items.length;
+  }
 }
 
 const queue = new Queue(5);
