@@ -19,11 +19,12 @@ class LinkedList {
 
   clear() {
     this.head = null;
+    this.tail = null;
     this.length = 0;
   }
 
   prepend(element) {
-    if (invalidElements.includes(element)) return;
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
 
     const node = new Node(element, this.head);
 
@@ -33,7 +34,7 @@ class LinkedList {
   }
 
   append(element) {
-    if (invalidElements.includes(element)) return;
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
 
     if (!this.head) {
       this.prepend(element);
@@ -46,7 +47,7 @@ class LinkedList {
   }
 
   insert(element, index) {
-    if (invalidElements.includes(element)) return;
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
 
     if (index < 0) throw new RangeError("Invalid index number");
 
@@ -102,32 +103,28 @@ class LinkedList {
 
     if (index == 0) {
       this.deleteHead();
-      return;
-    }
-
-    if (index > this.size()) {
+    } else if (index > this.size()) {
       this.deleteTail();
-      return;
+    } else {
+      let previousNode = null;
+      let currentNode = this.head;
+      let idx = 0;
+
+      while (currentNode) {
+        idx += 1;
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+
+        if (index == idx) break;
+      }
+
+      previousNode.next = currentNode.next;
+      this.length -= 1;
     }
-
-    let previousNode = null;
-    let currentNode = this.head;
-    let idx = 0;
-
-    while (currentNode) {
-      idx += 1;
-      previousNode = currentNode;
-      currentNode = currentNode.next;
-
-      if (index == idx) break;
-    }
-
-    previousNode.next = currentNode.next;
-    this.length -= 1;
   }
 
-  display(separator) {
-    return this.toArray().join(separator);
+  toString(separator) {
+    return this.toArray().join(separator || ", ");
   }
 
   toArray() {
@@ -150,7 +147,7 @@ class LinkedList {
   }
 
   find(element) {
-    if (invalidElements.includes(element)) return;
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
 
     if (!this.head) return null;
 
@@ -163,7 +160,7 @@ class LinkedList {
   }
 
   indexOf(element) {
-    if (invalidElements.includes(element)) return;
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
 
     let index = -1;
     let currentNode = this.head;
@@ -173,14 +170,17 @@ class LinkedList {
       index += 1;
 
       if (currentNode.value === element) {
-        isFound = true;
-        break;
+        return index;
       }
 
       currentNode = currentNode.next;
     }
 
-    return isFound ? index : -1;
+    return -1;
+  }
+
+  from(...items) {
+    this.fromArray(items);
   }
 }
 
@@ -190,21 +190,19 @@ list.append("1");
 list.append(2);
 list.prepend("b");
 list.append(false);
-list.append(50);
 list.insert("value", 9);
-list.insert("valuesaa", 6);
+list.insert("cat", 5);
 list.fromArray(["x", "y", "z"]);
-// list.clear();
-// list.deleteHead();
-// list.deleteHead();
-// list.deleteTail();
-// list.remove(2);
-console.log(list.find(false));
-console.log(list.indexOf(false));
+list.from(10, "truthy", true, "u", "q");
+list.deleteHead();
+list.deleteTail();
+list.remove(7);
 
-console.log({
-  size: list.size(),
-  list: list.head,
-  tail: list.tail,
-  display: list.display(", "),
-});
+console.log("List to string: ", list.toString(" - "));
+console.log("List size: ", list.size());
+console.log('Find node with value equal to "value": ', list.find("value"));
+console.log("Find index of node with value equal to 10: ", list.indexOf(10));
+
+list.clear();
+
+console.log("List: ", list.toString());
