@@ -182,6 +182,21 @@ class LinkedList {
   from(...items) {
     this.fromArray(items);
   }
+
+  reverse() {
+    let previousNode = null;
+    let currentNode = this.head;
+    let nextNode = null;
+
+    while (currentNode) {
+      nextNode = currentNode.next;
+      currentNode.next = previousNode;
+      previousNode = currentNode;
+      currentNode = nextNode;
+    }
+
+    this.head = previousNode;
+  }
 }
 
 const list = new LinkedList();
@@ -203,6 +218,7 @@ console.log("List size: ", list.size());
 console.log('Find node with value equal to "value": ', list.find("value"));
 console.log("Find index of node with value equal to 10: ", list.indexOf(10));
 
-list.clear();
+list.reverse();
+console.log("Reversed Link list: ", list.toString(" - "));
 
-console.log("List: ", list.toString());
+// list.clear();
