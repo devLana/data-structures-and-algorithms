@@ -1,28 +1,9 @@
+const SinglyLinkedList = require("../SinglyLinkedList");
 const Node = require("./Node");
 
 const invalidElements = [null, undefined, ""];
 
-class DoublyLinkedList {
-  constructor() {
-    this.head = null;
-    this.tail = null;
-    this.length = 0;
-  }
-
-  size() {
-    return this.length;
-  }
-
-  isEmpty() {
-    return this.length == 0;
-  }
-
-  clear() {
-    this.head = null;
-    this.tail = null;
-    this.length = 0;
-  }
-
+class DoublyLinkedList extends SinglyLinkedList {
   prepend(element) {
     if (invalidElements.includes(element)) throw new Error("Invalid element");
 
@@ -39,16 +20,9 @@ class DoublyLinkedList {
   }
 
   append(element) {
-    if (invalidElements.includes(element)) throw new Error("Invalid element");
-
-    if (!this.head) {
-      this.prepend(element);
-    } else {
-      const node = new Node(element, null, this.tail);
-      this.tail.next = node;
-      this.tail = node;
-      this.length += 1;
-    }
+    const previousTailNode = this.tail;
+    super.append(element);
+    this.tail.previous = previousTailNode;
   }
 
   insert(element, index) {
@@ -81,11 +55,8 @@ class DoublyLinkedList {
   }
 
   deleteHead() {
-    if (!this.head) return;
-
-    this.head = this.head.next;
+    super.deleteHead();
     this.head.previous = null;
-    this.length -= 1;
   }
 
   deleteTail() {
@@ -143,61 +114,6 @@ class DoublyLinkedList {
     return str;
   }
 
-  toArray() {
-    const result = [];
-
-    if (!this.head) return result;
-
-    let currentNode = this.head;
-
-    while (currentNode) {
-      result.push(currentNode.value);
-      currentNode = currentNode.next;
-    }
-
-    return result;
-  }
-
-  fromArray(arr) {
-    arr.forEach(item => this.append(item));
-  }
-
-  from(...items) {
-    this.fromArray(items);
-  }
-
-  find(element) {
-    if (invalidElements.includes(element)) throw new Error("Invalid element");
-
-    if (!this.head) return;
-
-    let currentNode = this.head;
-
-    while (currentNode) {
-      if (currentNode.value === element) return currentNode;
-      currentNode = currentNode.next;
-    }
-  }
-
-  indexOf(element) {
-    if (invalidElements.includes(element)) throw new Error("Invalid element");
-
-    let index = -1;
-    let currentNode = this.head;
-
-    while (currentNode) {
-      index += 1;
-
-      if (currentNode.value === element) {
-        return index;
-      }
-
-      currentNode = currentNode.next;
-    }
-
-    return -1;
-  }
-
   reverse() {
     let previousNode = null;
     let currentNode = this.head;
@@ -205,7 +121,7 @@ class DoublyLinkedList {
 
     while (currentNode) {
       nextNode = currentNode.next;
-      currentNode.previous = currentNode.next;
+      currentNode.previous = nextNode;
       currentNode.next = previousNode;
       previousNode = currentNode;
       currentNode = nextNode;
@@ -228,6 +144,7 @@ list.deleteTail();
 list.remove(1);
 
 console.log("List to string: ", list.toString(" - "));
+console.log("arr two: ", list.toArray());
 console.log("List size: ", list.size());
 console.log("List head: ", list.head);
 console.log('Find node with value equal to "hello": ', list.find("hello"));
