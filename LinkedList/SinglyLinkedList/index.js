@@ -124,7 +124,17 @@ class SinglyLinkedList {
   }
 
   toString(separator) {
-    return this.toArray().join(separator || ", ");
+    const joiner = separator || ", ";
+    let currentNode = this.head;
+    let str = "";
+
+    while (currentNode) {
+      str += `${currentNode.value}${joiner}`;
+      if (!currentNode.next) str = str.substring(0, str.lastIndexOf(joiner));
+      currentNode = currentNode.next;
+    }
+
+    return str;
   }
 
   toArray() {

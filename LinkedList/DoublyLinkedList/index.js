@@ -99,21 +99,6 @@ class DoublyLinkedList extends SinglyLinkedList {
     }
   }
 
-  toString(separator) {
-    const joiner = separator || ", ";
-    const regex = new RegExp(`${joiner}$`);
-    let currentNode = this.head;
-    let str = "";
-
-    while (currentNode) {
-      str += `${currentNode.value}${joiner}`;
-      if (!currentNode.next) str = str.replace(regex, "");
-      currentNode = currentNode.next;
-    }
-
-    return str;
-  }
-
   reverse() {
     let previousNode = null;
     let currentNode = this.head;
@@ -131,29 +116,29 @@ class DoublyLinkedList extends SinglyLinkedList {
   }
 }
 
-const list = new DoublyLinkedList();
-list.append("c");
-list.prepend("a");
-list.prepend("b");
-list.append("1");
-list.insert("test", 2);
-list.from(false, "truthy", "hello");
-list.fromArray(["falsy", true, "world"]);
-list.deleteHead();
-list.deleteTail();
-list.remove(1);
+// const list = new DoublyLinkedList();
+// list.append("c");
+// list.prepend("a");
+// list.prepend("b");
+// list.append("1");
+// list.insert("test", 2);
+// list.from(false, "truthy", "hello");
+// list.fromArray(["falsy", true, "world"]);
+// list.deleteHead();
+// list.deleteTail();
+// list.remove(1);
 
-console.log("List to string: ", list.toString(" - "));
-console.log("arr two: ", list.toArray());
-console.log("List size: ", list.size());
-console.log("List head: ", list.head);
-console.log('Find node with value equal to "hello": ', list.find("hello"));
-console.log(
-  'Find index of node with value equal to "hello": ',
-  list.indexOf("hello")
-);
+// console.log("List to string: ", list.toString(" - "));
+// console.log("arr two: ", list.toArray());
+// console.log("List size: ", list.size());
+// console.log("List head: ", list.head);
+// console.log('Find node with value equal to "hello": ', list.find("hello"));
+// console.log(
+//   'Find index of node with value equal to "hello": ',
+//   list.indexOf("hello")
+// );
 
-list.reverse();
-console.log("Reversed Link list: ", list.toString());
+// list.reverse();
+// console.log("Reversed Link list: ", list.toString());
 
 // list.clear();
