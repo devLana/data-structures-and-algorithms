@@ -2,7 +2,7 @@ const Node = require("./Node");
 
 const invalidElements = [null, undefined, ""];
 
-class LinkedList {
+class SinglyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -103,7 +103,7 @@ class LinkedList {
 
     if (index == 0) {
       this.deleteHead();
-    } else if (index > this.size()) {
+    } else if (index > this.size() - 1) {
       this.deleteTail();
     } else {
       let previousNode = null;
@@ -149,7 +149,7 @@ class LinkedList {
   find(element) {
     if (invalidElements.includes(element)) throw new Error("Invalid element");
 
-    if (!this.head) return null;
+    if (!this.head) return;
 
     let currentNode = this.head;
 
@@ -164,7 +164,6 @@ class LinkedList {
 
     let index = -1;
     let currentNode = this.head;
-    let isFound = false;
 
     while (currentNode) {
       index += 1;
@@ -199,26 +198,28 @@ class LinkedList {
   }
 }
 
-const list = new LinkedList();
-list.prepend("a");
-list.append("1");
-list.append(2);
-list.prepend("b");
-list.append(false);
-list.insert("value", 9);
-list.insert("cat", 5);
-list.fromArray(["x", "y", "z"]);
-list.from(10, "truthy", true, "u", "q");
-list.deleteHead();
-list.deleteTail();
-list.remove(7);
+// const list = new SinglyLinkedList();
+// list.prepend("a");
+// list.append("1");
+// list.append(2);
+// list.prepend("b");
+// list.append(false);
+// list.insert("value", 9);
+// list.insert("cat", 5);
+// list.fromArray(["x", "y", "z"]);
+// list.from(10, "truthy", true, "u", "q");
+// list.deleteHead();
+// list.deleteTail();
+// list.remove(7);
 
-console.log("List to string: ", list.toString(" - "));
-console.log("List size: ", list.size());
-console.log('Find node with value equal to "value": ', list.find("value"));
-console.log("Find index of node with value equal to 10: ", list.indexOf(10));
+// console.log("List to string: ", list.toString(" - "));
+// console.log("List size: ", list.size());
+// console.log('Find node with value equal to "value": ', list.find("value"));
+// console.log("Find index of node with value equal to 10: ", list.indexOf(10));
 
-list.reverse();
-console.log("Reversed Link list: ", list.toString(" - "));
+// list.reverse();
+// console.log("Reversed Link list: ", list.toString(" - "));
 
 // list.clear();
+
+module.exports = SinglyLinkedList;
