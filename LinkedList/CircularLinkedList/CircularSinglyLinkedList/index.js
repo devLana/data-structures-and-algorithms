@@ -1,0 +1,253 @@
+const Node = require("./Node");
+
+const invalidElements = [null, undefined, ""];
+
+class CircularSinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  get isEmpty() {
+    return this.length == 0;
+  }
+
+  get size() {
+    return this.length;
+  }
+
+  clear() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  prepend(element) {
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
+
+    const node = new Node(element, this.head);
+
+    if (!this.head) {
+      node.next = node;
+      this.tail = node;
+    } else {
+      this.tail.next = node;
+    }
+
+    this.head = node;
+    this.length++;
+  }
+
+  append(element) {
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
+
+    if (!this.head) {
+      this.prepend(element);
+    } else {
+      const node = new Node(element, this.head);
+      this.tail.next = node;
+      this.tail = node;
+      this.length++;
+    }
+  }
+
+  insert(element, index) {
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
+    if (index < 0) throw new RangeError("Invalid index number");
+
+    if (index == 0) {
+      this.prepend(element);
+    } else if (index >= this.size) {
+      this.append(element);
+    } else {
+      let previousNode = null;
+      let currentNode = this.head;
+      let idx = 0;
+
+      do {
+        idx++;
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+
+        if (index == idx) break;
+      } while (currentNode);
+
+      const node = new Node(element, currentNode);
+      previousNode.next = node;
+      this.length++;
+    }
+  }
+
+  deleteHead() {
+    if (!this.head) return;
+
+    this.head = this.head.next;
+    this.tail.next = this.head;
+    this.length--;
+  }
+
+  deleteTail() {
+    if (!this.tail) return;
+
+    let currentNode = this.head;
+    let idx = 0;
+
+    do {
+      idx++;
+
+      if (idx == this.size - 1) {
+        currentNode.next = this.head;
+        this.tail = currentNode;
+        this.length--;
+        break;
+      }
+
+      currentNode = currentNode.next;
+    } while (currentNode);
+  }
+
+  remove(index) {
+    if (index < 0) throw new RangeError("Invalid index number");
+
+    if (index == 0) {
+      this.deleteHead();
+    } else if (index > this.size - 1) {
+      this.deleteTail();
+    } else {
+      let previousNode = null;
+      let currentNode = this.head;
+      let idx = 0;
+
+      do {
+        idx++;
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+
+        if (index == idx) break;
+      } while (currentNode);
+
+      previousNode.next = currentNode.next;
+      this.length--;
+    }
+  }
+
+  toString(separator) {
+    if (!this.head) return null;
+
+    const joiner = separator || ", ";
+    let currentNode = this.head;
+    let str = "";
+    let idx = 0;
+
+    do {
+      idx++;
+      str += `${currentNode.value}${joiner}`;
+
+      if (this.size == idx) {
+        str = str.substring(0, str.lastIndexOf(joiner));
+        break;
+      }
+
+      currentNode = currentNode.next;
+    } while (currentNode);
+
+    return str;
+  }
+
+  toArray() {
+    const res = [];
+
+    if (!this.head) return result;
+
+    let currentNode = this.head;
+    let idx = 0;
+
+    do {
+      idx++;
+      result.push(currentNode.value);
+      currentNode = currentNode.next;
+
+      if (this.size == idx) break;
+    } while (currentNode);
+
+    return result;
+  }
+
+  fromArray(arr) {
+    arr.forEach(item => this.append(item));
+  }
+
+  from(...items) {
+    this.fromArray(items);
+  }
+
+  find(element) {
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
+
+    if (!this.head) return;
+
+    let currentNode = this.head;
+    let idx = 0;
+
+    do {
+      idx++;
+
+      if (currentNode.value === element) return currentNode;
+      if (this.size == idx) return;
+
+      currentNode = currentNode.next;
+    } while (currentNode);
+  }
+
+  indexOf(element) {
+    if (invalidElements.includes(element)) throw new Error("Invalid element");
+
+    if (!this.head) return;
+
+    let index = -1;
+    let currentNode = this.head;
+    let idx = 0;
+
+    do {
+      index++;
+      idx++;
+
+      if (currentNode.value === element) return index;
+      if (this.size == idx) return -1;
+
+      currentNode = currentNode.next;
+    } while (currentNode);
+
+    return -1;
+  }
+
+  reverse() {
+    let previousNode = this.tail;
+    let currentNode = this.head;
+    let nextNode = null;
+    let idx = 0;
+
+    do {
+      idx++;
+      nextNode = currentNode.next;
+      currentNode.next = previousNode;
+      previousNode = currentNode;
+      currentNode = nextNode;
+
+      if (this.size == idx) break;
+    } while (currentNode);
+
+    this.head = previousNode;
+  }
+}
+
+const list = new CircularSinglyLinkedList();
+
+list.append("quart"); // 3
+list.prepend("1234"); // 1
+list.append("cat"); // 4
+list.prepend("dumb"); // 0
+list.insert("testing", 2); // 2
+
+console.log(list.head);
