@@ -37,7 +37,7 @@ class Stack {
     return this.items.pop();
   }
 
-  isEmpty() {
+  get isEmpty() {
     return this.items.length == 0;
   }
 
@@ -46,7 +46,7 @@ class Stack {
     return this.items[this.items.length - 1];
   }
 
-  isFull() {
+  get isFull() {
     if (!this.capacity) return false;
     if (this.capacity && this.capacity > this.items.length) {
       return false;
@@ -54,7 +54,7 @@ class Stack {
     return true;
   }
 
-  size() {
+  get size() {
     return this.items.length;
   }
 }

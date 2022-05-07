@@ -32,7 +32,7 @@ class DoublyLinkedList extends SinglyLinkedList {
 
     if (index == 0) {
       this.prepend(element);
-    } else if (index >= this.size()) {
+    } else if (index >= this.size) {
       this.append(element);
     } else {
       let previousNode = null;
@@ -78,7 +78,7 @@ class DoublyLinkedList extends SinglyLinkedList {
 
     if (index == 0) {
       this.deleteHead();
-    } else if (index >= this.size() - 1) {
+    } else if (index >= this.size - 1) {
       this.deleteTail();
     } else {
       let previousNode = null;
@@ -116,12 +116,12 @@ class DoublyLinkedList extends SinglyLinkedList {
   }
 }
 
-// const list = new DoublyLinkedList();
-// list.append("c");
-// list.prepend("a");
-// list.prepend("b");
-// list.append("1");
-// list.insert("test", 2);
+const list = new DoublyLinkedList();
+list.append("c");
+list.prepend("a");
+list.prepend("b");
+list.append("1");
+list.insert("test", 2);
 // list.from(false, "truthy", "hello");
 // list.fromArray(["falsy", true, "world"]);
 // list.deleteHead();
@@ -129,8 +129,7 @@ class DoublyLinkedList extends SinglyLinkedList {
 // list.remove(1);
 
 // console.log("List to string: ", list.toString(" - "));
-// console.log("arr two: ", list.toArray());
-// console.log("List size: ", list.size());
+// console.log("List size: ", list.size);
 // console.log("List head: ", list.head);
 // console.log('Find node with value equal to "hello": ', list.find("hello"));
 // console.log(

@@ -9,11 +9,11 @@ class SinglyLinkedList {
     this.length = 0;
   }
 
-  size() {
+  get size() {
     return this.length;
   }
 
-  isEmpty() {
+  get isEmpty() {
     return this.length == 0;
   }
 
@@ -53,7 +53,7 @@ class SinglyLinkedList {
 
     if (index == 0) {
       this.prepend(element);
-    } else if (index >= this.size()) {
+    } else if (index >= this.size) {
       this.append(element);
     } else {
       let previousNode = null;
@@ -103,7 +103,7 @@ class SinglyLinkedList {
 
     if (index == 0) {
       this.deleteHead();
-    } else if (index > this.size() - 1) {
+    } else if (index > this.size - 1) {
       this.deleteTail();
     } else {
       let previousNode = null;
@@ -223,7 +223,7 @@ class SinglyLinkedList {
 // list.remove(7);
 
 // console.log("List to string: ", list.toString(" - "));
-// console.log("List size: ", list.size());
+// console.log("List size: ", list.size);
 // console.log('Find node with value equal to "value": ', list.find("value"));
 // console.log("Find index of node with value equal to 10: ", list.indexOf(10));
 
