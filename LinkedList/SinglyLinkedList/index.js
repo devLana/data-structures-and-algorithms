@@ -124,6 +124,8 @@ class SinglyLinkedList {
   }
 
   toString(separator) {
+    if (!this.head) return null;
+
     const joiner = separator || ", ";
     let currentNode = this.head;
     let str = "";
@@ -171,6 +173,8 @@ class SinglyLinkedList {
 
   indexOf(element) {
     if (invalidElements.includes(element)) throw new Error("Invalid element");
+
+    if (!this.head) return;
 
     let index = -1;
     let currentNode = this.head;
