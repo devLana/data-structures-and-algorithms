@@ -103,6 +103,7 @@ class DoublyLinkedList extends SinglyLinkedList {
     let previousNode = null;
     let currentNode = this.head;
     let nextNode = null;
+    let tempTail = this.head;
 
     while (currentNode) {
       nextNode = currentNode.next;
@@ -113,15 +114,16 @@ class DoublyLinkedList extends SinglyLinkedList {
     }
 
     this.head = previousNode;
+    this.tail = tempTail;
   }
 }
 
 const list = new DoublyLinkedList();
-list.append("c");
-list.prepend("a");
-list.prepend("b");
-list.append("1");
-list.insert("test", 2);
+// list.append("c");
+// list.prepend("a");
+// list.prepend("b");
+// list.append("1");
+// list.insert("test", 2);
 // list.from(false, "truthy", "hello");
 // list.fromArray(["falsy", true, "world"]);
 // list.deleteHead();
@@ -131,6 +133,7 @@ list.insert("test", 2);
 // console.log("List to string: ", list.toString(" - "));
 // console.log("List size: ", list.size);
 // console.log("List head: ", list.head);
+// console.log("List tail: ", list.tail);
 // console.log('Find node with value equal to "hello": ', list.find("hello"));
 // console.log(
 //   'Find index of node with value equal to "hello": ',
@@ -138,6 +141,8 @@ list.insert("test", 2);
 // );
 
 // list.reverse();
-// console.log("Reversed Link list: ", list.toString());
+// console.log("Reversed list to string: ", list.toString());
+// console.log("Reversed list head: ", list.head);
+// console.log("Reversed list tail: ", list.tail);
 
 // list.clear();
