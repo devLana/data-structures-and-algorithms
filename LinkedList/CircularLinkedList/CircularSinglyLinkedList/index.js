@@ -82,29 +82,38 @@ class CircularSinglyLinkedList {
   deleteHead() {
     if (!this.head) return;
 
-    this.head = this.head.next;
-    this.tail.next = this.head;
+    if (this.size == 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.head = this.head.next;
+      this.tail.next = this.head;
+    }
+
     this.length--;
   }
 
   deleteTail() {
     if (!this.tail) return;
 
-    let currentNode = this.head;
-    let idx = 0;
+    if (this.size == 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      let currentNode = this.head;
 
-    do {
-      idx++;
+      do {
+        if (currentNode.next === this.tail) {
+          currentNode.next = this.head;
+          this.tail = currentNode;
+          break;
+        }
 
-      if (idx == this.size - 1) {
-        currentNode.next = this.head;
-        this.tail = currentNode;
-        this.length--;
-        break;
-      }
+        currentNode = currentNode.next;
+      } while (currentNode);
+    }
 
-      currentNode = currentNode.next;
-    } while (currentNode);
+    this.length--;
   }
 
   remove(index) {
@@ -138,13 +147,11 @@ class CircularSinglyLinkedList {
     const joiner = separator || ", ";
     let currentNode = this.head;
     let str = "";
-    let idx = 0;
 
     do {
-      idx++;
       str += `${currentNode.value}${joiner}`;
 
-      if (this.size == idx) {
+      if (currentNode === this.tail) {
         str = str.substring(0, str.lastIndexOf(joiner));
         break;
       }
@@ -156,19 +163,18 @@ class CircularSinglyLinkedList {
   }
 
   toArray() {
-    const res = [];
+    const result = [];
 
     if (!this.head) return result;
 
     let currentNode = this.head;
-    let idx = 0;
 
     do {
-      idx++;
       result.push(currentNode.value);
-      currentNode = currentNode.next;
 
-      if (this.size == idx) break;
+      if (currentNode === this.tail) break;
+
+      currentNode = currentNode.next;
     } while (currentNode);
 
     return result;
@@ -188,13 +194,10 @@ class CircularSinglyLinkedList {
     if (!this.head) return;
 
     let currentNode = this.head;
-    let idx = 0;
 
     do {
-      idx++;
-
       if (currentNode.value === element) return currentNode;
-      if (this.size == idx) return;
+      if (currentNode === this.tail) return;
 
       currentNode = currentNode.next;
     } while (currentNode);
@@ -205,16 +208,14 @@ class CircularSinglyLinkedList {
 
     if (!this.head) return;
 
-    let index = -1;
     let currentNode = this.head;
-    let idx = 0;
+    let index = -1;
 
     do {
       index++;
-      idx++;
 
       if (currentNode.value === element) return index;
-      if (this.size == idx) return -1;
+      if (currentNode === this.tail) return -1;
 
       currentNode = currentNode.next;
     } while (currentNode);
@@ -226,28 +227,36 @@ class CircularSinglyLinkedList {
     let previousNode = this.tail;
     let currentNode = this.head;
     let nextNode = null;
-    let idx = 0;
+    let tempTail = this.head;
 
     do {
-      idx++;
       nextNode = currentNode.next;
       currentNode.next = previousNode;
       previousNode = currentNode;
       currentNode = nextNode;
 
-      if (this.size == idx) break;
+      if (currentNode === this.head) break;
     } while (currentNode);
 
     this.head = previousNode;
+    this.tail = tempTail;
   }
 }
 
-const list = new CircularSinglyLinkedList();
+// const list = new CircularSinglyLinkedList();
 
-list.append("quart"); // 3
-list.prepend("1234"); // 1
-list.append("cat"); // 4
-list.prepend("dumb"); // 0
-list.insert("testing", 2); // 2
+// list.append("quart");
+// list.prepend("1234");
+// list.append(true);
+// list.prepend("dumb");
+// list.insert("testing", 2);
 
-console.log(list.head);
+// console.log(list.head);
+// console.log("To String: ", list.toString());
+// console.log("\n");
+
+// list.reverse();
+// list.remove(3);
+// console.log(list.head);
+// console.log("To Array: ", list.toArray());
+// console.log("To String: ", list.toString());
