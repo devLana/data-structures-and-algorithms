@@ -243,6 +243,8 @@ class CircularSinglyLinkedList {
   }
 }
 
+module.exports = CircularSinglyLinkedList;
+
 // const list = new CircularSinglyLinkedList();
 
 // list.append("quart");
