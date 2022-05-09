@@ -27,7 +27,7 @@ class DoublyLinkedList extends SinglyLinkedList {
 
   insert(element, index) {
     if (invalidElements.includes(element)) throw new Error("Invalid element");
-
+    if (typeof index != "number") throw new TypeError("Index must be a number");
     if (index < 0) throw new RangeError("Invalid index number");
 
     if (index == 0) {
@@ -62,18 +62,19 @@ class DoublyLinkedList extends SinglyLinkedList {
   deleteTail() {
     if (!this.tail) return;
 
-    this.tail = this.tail.previous;
-
-    if (this.tail) {
-      this.tail.next = null;
-    } else {
+    if (this.size == 1) {
+      this.tail = null;
       this.head = null;
+    } else {
+      this.tail = this.tail.previous;
+      this.tail.next = null;
     }
 
     this.length -= 1;
   }
 
   remove(index) {
+    if (typeof index != "number") throw new TypeError("Index must be a number");
     if (index < 0) throw new RangeError("Invalid index number");
 
     if (index == 0) {

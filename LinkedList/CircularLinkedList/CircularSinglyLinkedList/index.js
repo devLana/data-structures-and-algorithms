@@ -54,6 +54,7 @@ class CircularSinglyLinkedList {
 
   insert(element, index) {
     if (invalidElements.includes(element)) throw new Error("Invalid element");
+    if (typeof index != "number") throw new TypeError("Index must be a number");
     if (index < 0) throw new RangeError("Invalid index number");
 
     if (index == 0) {
@@ -117,6 +118,7 @@ class CircularSinglyLinkedList {
   }
 
   remove(index) {
+    if (typeof index != "number") throw new TypeError("Index must be a number");
     if (index < 0) throw new RangeError("Invalid index number");
 
     if (index == 0) {
@@ -181,6 +183,7 @@ class CircularSinglyLinkedList {
   }
 
   fromArray(arr) {
+    if (!Array.isArray(arr)) throw new TypeError("Input is not an array");
     arr.forEach(item => this.append(item));
   }
 
