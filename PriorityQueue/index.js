@@ -1,8 +1,23 @@
 const Item = require("./item");
 
+const valueMapper = {
+  null: true,
+  undefined: true,
+  "": true,
+};
+
 class PriorityQueue {
-  constructor() {
+  constructor(capacity = null) {
+    if (capacity !== null && typeof capacity !== "number") {
+      throw new TypeError("Invalid capacity type");
+    }
+
+    if (capacity !== null && capacity < 1) {
+      throw new Error("Queue capacity cannot be less than one");
+    }
+
     this.queue = [];
+    this.capacity = capacity;
   }
 
   get size() {
@@ -10,13 +25,25 @@ class PriorityQueue {
   }
 
   get isEmpty() {
-    return this.queue.length == 0;
+    return this.size == 0;
+  }
+
+  get isFull() {
+    if (!this.capacity) return false;
+    if (this.capacity > this.size) return false;
+    return true;
   }
 
   enqueue(value, priority) {
+    if (typeof priority != "number") throw new TypeError("Invalid priority");
+    if (priority < 1) throw new Error("Priority cannot be less than one");
+    if (valueMapper[value]) throw new Error("Invalid value");
+
+    if (this.isFull) throw new Error("Queue is full");
+
     const element = new Item(value, priority);
 
-    if (this.queue.length == 0) {
+    if (this.isEmpty) {
       this.queue.push(element);
     } else {
       const queue = this.queue;
@@ -35,27 +62,12 @@ class PriorityQueue {
   }
 
   dequeue() {
-    if (this.queue.length == 0) return null;
+    if (this.isEmpty) return null;
     return this.queue.shift();
   }
 
   peek() {
-    if (this.queue.length == 0) return null;
+    if (this.isEmpty) return null;
     return this.queue[0];
   }
 }
-
-const pq = new PriorityQueue();
-
-pq.enqueue("a", 4);
-pq.enqueue("b", 2);
-pq.enqueue("c", 4);
-pq.enqueue("d", 1);
-pq.enqueue("e", 1);
-pq.enqueue("f", 6);
-pq.enqueue("g", 5);
-pq.enqueue("h", 6);
-pq.dequeue();
-pq.dequeue();
-
-console.log(pq.isEmpty);
