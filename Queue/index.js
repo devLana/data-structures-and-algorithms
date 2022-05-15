@@ -19,7 +19,7 @@ class Queue {
   }
 
   enqueue(...elements) {
-    if (this.isFull()) {
+    if (this.isFull) {
       throw new Error("Queue is full");
     }
 
@@ -33,7 +33,7 @@ class Queue {
   }
 
   dequeue() {
-    if (this.isEmpty()) return null;
+    if (this.isEmpty) return null;
     return this.items.pop();
   }
 
@@ -42,7 +42,7 @@ class Queue {
   }
 
   peek() {
-    if (this.isEmpty()) return null;
+    if (this.isEmpty) return null;
     return this.items[this.items.length - 1];
   }
 

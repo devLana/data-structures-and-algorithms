@@ -19,7 +19,7 @@ class Stack {
   }
 
   push(...elements) {
-    if (this.isFull()) {
+    if (this.isFull) {
       throw new Error("Stack is full. Cannot add anymore elements");
     }
 
@@ -33,7 +33,7 @@ class Stack {
   }
 
   pop() {
-    if (this.isEmpty()) return null;
+    if (this.isEmpty) return null;
     return this.items.pop();
   }
 
@@ -42,7 +42,7 @@ class Stack {
   }
 
   peek() {
-    if (this.isEmpty()) return null;
+    if (this.isEmpty) return null;
     return this.items[this.items.length - 1];
   }
 
