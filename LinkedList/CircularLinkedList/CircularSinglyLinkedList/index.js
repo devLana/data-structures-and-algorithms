@@ -247,21 +247,3 @@ class CircularSinglyLinkedList {
 }
 
 module.exports = CircularSinglyLinkedList;
-
-// const list = new CircularSinglyLinkedList();
-
-// list.append("quart");
-// list.prepend("1234");
-// list.append(true);
-// list.prepend("dumb");
-// list.insert("testing", 2);
-
-// console.log(list.head);
-// console.log("To String: ", list.toString());
-// console.log("\n");
-
-// list.reverse();
-// list.remove(3);
-// console.log(list.head);
-// console.log("To Array: ", list.toArray());
-// console.log("To String: ", list.toString());

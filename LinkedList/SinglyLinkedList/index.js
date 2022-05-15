@@ -226,32 +226,4 @@ class SinglyLinkedList {
   }
 }
 
-// const list = new SinglyLinkedList();
-// list.prepend("a");
-// list.append("1");
-// list.append(2);
-// list.prepend("b");
-// list.append(false);
-// list.insert("value", 9);
-// list.insert("cat", 5);
-// list.fromArray(["x", "y", "z"]);
-// list.from(10, "truthy", true, "u", "q");
-// list.deleteHead();
-// list.deleteTail();
-// list.remove(7);
-
-// console.log("List to string: ", list.toString(" - "));
-// console.log("List head: ", list.head);
-// console.log("List tail: ", list.tail);
-// console.log("List size: ", list.size);
-// console.log('Find node with value equal to "value": ', list.find("value"));
-// console.log("Find index of node with value equal to 10: ", list.indexOf(10));
-
-// list.reverse();
-// console.log("Reversed list to string: ", list.toString());
-// console.log("Reversed list head: ", list.head);
-// console.log("Reversed list tail: ", list.tail);
-
-// list.clear();
-
 module.exports = SinglyLinkedList;

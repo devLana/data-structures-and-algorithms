@@ -140,19 +140,3 @@ class CircularDoublyLinkedList extends CircularSinglyLinkedList {
     this.tail = tempTail;
   }
 }
-
-// const list = new CircularDoublyLinkedList();
-
-// list.append(1);
-// list.prepend(2);
-// list.insert(3, 1);
-// list.prepend("a");
-// list.remove(1);
-
-// console.log("To string: ", list.toString(" - "));
-// console.log("To array: ", list.toArray());
-// console.log("List head: ", list.head);
-// console.log("\n");
-
-// list.reverse();
-// console.log("Reversed to string: ", list.toString("..."));
