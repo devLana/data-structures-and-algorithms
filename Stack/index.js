@@ -1,10 +1,10 @@
 class Stack {
   constructor(capacity, ...items) {
-    if (capacity !== null && typeof capacity !== "number") {
-      throw new TypeError("Invalid capacity type");
-    }
+    if (capacity !== null) {
+      if (typeof capacity != "number") {
+        throw new TypeError("Invalid capacity type");
+      }
 
-    if (typeof capacity === "number") {
       if (capacity < 1) {
         throw new Error("Stack capacity cannot be less than one");
       }
@@ -18,13 +18,27 @@ class Stack {
     this.items = items;
   }
 
+  get size() {
+    return this.items.length;
+  }
+
+  get isEmpty() {
+    return this.size == 0;
+  }
+
+  get isFull() {
+    if (!this.capacity) return false;
+    if (this.capacity > this.size) return false;
+    return true;
+  }
+
   push(...elements) {
     if (this.isFull) {
       throw new Error("Stack is full. Cannot add anymore elements");
     }
 
     if (this.capacity) {
-      const diff = this.capacity - this.items.length;
+      const diff = this.capacity - this.size;
       const items = elements.slice(0, diff);
       this.items.push(...items);
     } else {
@@ -37,26 +51,8 @@ class Stack {
     return this.items.pop();
   }
 
-  get isEmpty() {
-    return this.items.length == 0;
-  }
-
   peek() {
     if (this.isEmpty) return null;
     return this.items[this.items.length - 1];
   }
-
-  get isFull() {
-    if (!this.capacity) return false;
-    if (this.capacity && this.capacity > this.items.length) {
-      return false;
-    }
-    return true;
-  }
-
-  get size() {
-    return this.items.length;
-  }
 }
-
-const stack = new Stack(null, 11, 19, 1, 2);

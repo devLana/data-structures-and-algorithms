@@ -8,12 +8,14 @@ const valueMapper = {
 
 class PriorityQueue {
   constructor(capacity = null) {
-    if (capacity !== null && typeof capacity !== "number") {
-      throw new TypeError("Invalid capacity type");
-    }
+    if (capacity !== null) {
+      if (typeof capacity !== "number") {
+        throw new TypeError("Invalid capacity type");
+      }
 
-    if (capacity !== null && capacity < 1) {
-      throw new Error("Queue capacity cannot be less than one");
+      if (capacity < 1) {
+        throw new Error("Queue capacity cannot be less than one");
+      }
     }
 
     this.queue = [];
