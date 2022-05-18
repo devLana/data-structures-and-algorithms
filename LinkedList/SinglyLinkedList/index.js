@@ -134,6 +134,20 @@ class SinglyLinkedList {
     }
   }
 
+  recursiveToString(separator) {
+    if (!this.head) return null;
+
+    const joiner = separator || ", ";
+
+    const recurse = node => {
+      return node === this.tail
+        ? `${node.value}`
+        : `${node.value}${joiner}${recurse(node.next)}`;
+    };
+
+    return recurse(this.head);
+  }
+
   toString(separator) {
     if (!this.head) return null;
 
