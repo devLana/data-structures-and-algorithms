@@ -184,21 +184,28 @@ class SinglyLinkedList {
     arr.forEach(item => this.append(item));
   }
 
-  find(element) {
-    if (invalidElements.includes(element)) throw new Error("Invalid element");
+  find(callback) {
+    if (typeof callback !== "function") {
+      throw new TypeError(`${callback} is not a function`);
+    }
 
     if (!this.head) return;
 
     let currentNode = this.head;
 
     while (currentNode) {
-      if (currentNode.value === element) return currentNode;
+      const isFound = callback(currentNode);
+
+      if (isFound) return currentNode;
+
       currentNode = currentNode.next;
     }
   }
 
-  indexOf(element) {
-    if (invalidElements.includes(element)) throw new Error("Invalid element");
+  indexOf(callback) {
+    if (typeof callback !== "function") {
+      throw new TypeError(`${callback} is not a function`);
+    }
 
     if (!this.head) return;
 
@@ -208,9 +215,9 @@ class SinglyLinkedList {
     while (currentNode) {
       index += 1;
 
-      if (currentNode.value === element) {
-        return index;
-      }
+      const node = callback(currentNode);
+
+      if (node) return index;
 
       currentNode = currentNode.next;
     }
