@@ -134,30 +134,27 @@ class SinglyLinkedList {
     }
   }
 
-  recursiveToString(separator) {
+  recursiveToString(separator = ", ") {
     if (!this.head) return null;
-
-    const joiner = separator || ", ";
 
     const recurse = node => {
       return node === this.tail
         ? `${node.value}`
-        : `${node.value}${joiner}${recurse(node.next)}`;
+        : `${node.value}${separator}${recurse(node.next)}`;
     };
 
     return recurse(this.head);
   }
 
-  toString(separator) {
+  toString(separator = ", ") {
     if (!this.head) return null;
 
-    const joiner = separator || ", ";
     let currentNode = this.head;
     let str = "";
 
     while (currentNode) {
-      str += `${currentNode.value}${joiner}`;
-      if (!currentNode.next) str = str.substring(0, str.lastIndexOf(joiner));
+      str += `${currentNode.value}${separator}`;
+      if (!currentNode.next) str = str.substring(0, str.lastIndexOf(separator));
       currentNode = currentNode.next;
     }
 

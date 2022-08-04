@@ -143,32 +143,29 @@ class CircularSinglyLinkedList {
     }
   }
 
-  recursiveToString(separator) {
+  recursiveToString(separator = ", ") {
     if (!this.head) return null;
-
-    const joiner = separator || ", ";
 
     const recurse = node => {
       return node === this.tail
         ? `${node.value}`
-        : `${node.value}${joiner}${recurse(node.next)}`;
+        : `${node.value}${separator}${recurse(node.next)}`;
     };
 
     return recurse(this.head);
   }
 
-  toString(separator) {
+  toString(separator = ", ") {
     if (!this.head) return null;
 
-    const joiner = separator || ", ";
     let currentNode = this.head;
     let str = "";
 
     do {
-      str += `${currentNode.value}${joiner}`;
+      str += `${currentNode.value}${separator}`;
 
       if (currentNode === this.tail) {
-        str = str.substring(0, str.lastIndexOf(joiner));
+        str = str.substring(0, str.lastIndexOf(separator));
         break;
       }
 
