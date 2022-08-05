@@ -26,11 +26,11 @@ class BaseTree {
   add(value, parent) {
     if (!value) throw TypeError('Enter a valid "value"');
 
-    const node = new Node(value);
     const parentNode = this.find(parent);
 
     if (!parentNode) throw Error('"Parent" node does not exist');
 
+    const node = new Node(value, parentNode);
     parentNode.children.push(node);
   }
 
@@ -86,22 +86,17 @@ class BaseTree {
     return result.replace(/ - $/, "");
   }
 
-  remove(data) {}
+  remove(value) {
+    if (!value) throw TypeError('Enter a valid "value"');
+
+    const node = this.find(value);
+
+    if (!node) throw Error("Value does not exist");
+    if (node === this.root) throw Error("Cannot remove root node");
+
+    const { parent } = node;
+    const index = parent.children.indexOf(node);
+
+    parent.children.splice(index, 1);
+  }
 }
-
-const tree = new BaseTree("Tunji");
-tree.add("Dayo", "Tunji");
-tree.add("Toun", "Tunji");
-tree.add("Lana", "Tunji");
-tree.add("Tiara", "Dayo");
-tree.add("Ini", "Dayo");
-tree.add("Yemi", "Dayo");
-tree.add("Tunde", "Ini");
-tree.add("Femi", "Ini");
-tree.add("Damo", "Lana");
-tree.add("James", "Toun");
-tree.add("John", "Toun");
-tree.add("Felix", "Toun");
-tree.add("Shane", "Felix");
-
-console.log(tree.levelOrderTraverse());
