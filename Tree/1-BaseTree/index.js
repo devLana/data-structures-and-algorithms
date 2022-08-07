@@ -92,11 +92,23 @@ class BaseTree {
     const node = this.find(value);
 
     if (!node) throw Error("Value does not exist");
-    if (node === this.root) throw Error("Cannot remove root node");
+    if (node === this.root && node.children.length === 0) {
+      throw Error("Cannot remove root node");
+    }
 
-    const { parent } = node;
-    const index = parent.children.indexOf(node);
+    if (node.children.length === 0) {
+      const { parent } = node;
+      const index = parent.children.indexOf(node);
 
-    parent.children.splice(index, 1);
+      parent.children.splice(index, 1);
+    } else {
+      const [firstChild] = node.children;
+
+      for (const child of firstChild.children) child.parent = node;
+
+      node.data = firstChild.data;
+      node.children.push(...firstChild.children);
+      node.children.splice(0, 1);
+    }
   }
 }
