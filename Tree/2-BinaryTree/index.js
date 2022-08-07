@@ -102,34 +102,39 @@ class BinaryTree {
     return result.replace(/ $/, "");
   }
 
-  remove(value) {}
+  remove(value) {
+    if (!value) throw TypeError('Enter a valid "value"');
+
+    const node = this.find(value);
+
+    if (!node) throw Error("Value does not exist");
+    if (node === this.root && !node.left && !node.right) {
+      throw Error("Cannot remove root node");
+    }
+
+    if (!node.left && !node.right) {
+      const { parent } = node;
+
+      if (parent.left === node) {
+        parent.left = null;
+      } else {
+        parent.right = null;
+      }
+    } else if (!node.left) {
+      node.data = node.right.data;
+      node.right = null;
+    } else if (!node.right) {
+      node.data = node.left.data;
+      node.left = null;
+    } else {
+      let tempNode = node;
+
+      while (tempNode.right) {
+        tempNode = tempNode.right;
+      }
+
+      node.data = tempNode.data;
+      tempNode.parent.right = null;
+    }
+  }
 }
-
-const tree = new BinaryTree("ab");
-tree.add("cd", "ab", "left");
-tree.add("de", "ab", "right");
-tree.add("bc", "cd", "left");
-tree.add("df", "cd", "right");
-tree.add("ac", "df", "left");
-tree.add("ae", "df", "right");
-tree.add("ay", "ac", "left");
-tree.add("aj", "ay", "left");
-tree.add("kl", "aj", "left");
-tree.add("fo", "ay", "right");
-tree.add("am", "fo", "right");
-tree.add("op", "ae", "left");
-tree.add("qr", "ae", "right");
-tree.add("mo", "de", "right");
-tree.add("ca", "mo", "right");
-tree.add("zx", "mo", "left");
-tree.add("ij", "zx", "right");
-tree.add("ef", "ij", "left");
-tree.add("xy", "de", "left");
-tree.add("cx", "zx", "left");
-tree.add("gh", "cx", "right");
-
-console.log("Tree - ", tree);
-console.log("In Order Traverse - ", tree.inOrderTraverse());
-console.log("Pre Order Traverse - ", tree.preOrderTraverse());
-console.log("Post Order Traverse - ", tree.postOrderTraverse());
-console.log("Level Order Traverse - ", tree.levelOrderTraverse());
