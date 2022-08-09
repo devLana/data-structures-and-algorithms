@@ -5,7 +5,9 @@ class BaseTree {
     if (!root) throw Error("Root value is required");
 
     const node = new Node(root);
+
     this.root = node;
+    this.size = 1;
   }
 
   find(value) {
@@ -31,7 +33,9 @@ class BaseTree {
     if (!parentNode) throw Error('"Parent" node does not exist');
 
     const node = new Node(value, parentNode);
+
     parentNode.children.push(node);
+    this.sze++;
   }
 
   postOrderTraverse() {
@@ -110,5 +114,7 @@ class BaseTree {
       node.children.push(...firstChild.children);
       node.children.splice(0, 1);
     }
+
+    this.size--;
   }
 }

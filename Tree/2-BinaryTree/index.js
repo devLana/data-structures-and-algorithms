@@ -7,6 +7,7 @@ class BinaryTree {
 
     const node = new Node(data);
     this.root = node;
+    this.size = 1;
   }
 
   find(value) {
@@ -44,6 +45,7 @@ class BinaryTree {
     const node = new Node(value, parentNode);
 
     parentNode[side] = node;
+    this.size++;
   }
 
   inOrderTraverse() {
@@ -136,5 +138,7 @@ class BinaryTree {
       node.data = tempNode.data;
       tempNode.parent.right = null;
     }
+
+    this.size--;
   }
 }
